@@ -1,37 +1,39 @@
-# LENS: Query-Adaptive Spatial Zoom-In and Temporal Zoom-Out for Long Video Understanding
+# [ECCV 2026] LENS: Query-Adaptive Spatial Zoom-In and Temporal Zoom-Out for Long Video Understanding
 
-LENS is a training-free keyframe selection pipeline for long-video question answering with large vision-language models (LVLMs). Given a fixed frame budget, LENS lets the LLM itself decide — per question — how to split the budget between two complementary views of the video:
+[![arXiv](https://img.shields.io/badge/arXiv-Coming_Soon-b31b1b.svg)](https://arxiv.org/) [![Conference](https://img.shields.io/badge/ECCV-2026-blue)](https://eccv.ecva.net/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![PyTorch](https://img.shields.io/badge/PyTorch-2.6-EE4C2C.svg?logo=pytorch&logoColor=white)](https://pytorch.org/)
 
-- **Spatial zoom-in**: full-resolution keyframes whose query-irrelevant regions are suppressed by CLIP attention masking, for detail questions (reading text, small objects, attributes).
-- **Temporal zoom-out**: 2×2 *hyperframes* that pack an anchor frame with its temporal neighborhood into a single frame slot, for questions about events, ordering, and changes over time.
+## 🔥 News
 
-## Pipeline
+- **[2026.07]** 🎉 LENS is accepted to **ECCV 2026**!
+- **[2026.07]** 💻 Code is released. Try LENS on MLVU, Video-MME, LongVideoBench, EgoSchema, and NExT-QA!
 
-```
-Question ──► LLM budget allocator ──► r ∈ [0, 1]
-                                       │
-        ┌──────────────────────────────┴──────────────────────────────┐
-        │  r · N frames                                (1 − r) · N frames
-        ▼                                                             ▼
-  Spatial zoom-in                                          Temporal zoom-out
-  1. ITM scoring (CLIP / BLIP / BLIP2)                1. Uniform pre-sampling (128 frames)
-  2. Watershed anchor selection                       2. Graph-diffusion score refinement
-  3. CLIP attention masking                              (SSIM frame graph + manifold ranking)
-     (highlight query-relevant regions)               3. Watershed anchor selection
-                                                      4. 2×2 hyperframe composition
-        └──────────────────────────────┬──────────────────────────────┘
-                                       ▼
-                     N frames, temporally ordered ──► LVLM ──► answer
-```
+## 👀 Introduction
 
-Key components:
+This repository contains the code for our ECCV 2026 paper `LENS: Query-Adaptive Spatial Zoom-In and Temporal Zoom-Out for Long Video Understanding`.
 
-- **LLM budget allocation** (`utils/prompts.py`): a lightweight prompt asks the LVLM to output a single ratio `r` from the question alone — detail questions get more spatial zoom-in, temporal questions get more zoom-out.
-- **Watershed anchor selection** (`utils/sampling.py`): valleys of the query-frame relevance curve split the video into basins; each basin contributes its peak, and 1D k-means over time enforces temporal diversity.
-- **Graph-diffusion refinement** (`utils/sampling.py`): frames are connected by pairwise SSIM (most-similar edges first, until the graph is connected); manifold ranking `f ← βPf + (1−β)y` propagates relevance along the graph, suppressing isolated noisy peaks and strengthening coherent segments.
-- **CLIP attention masking** (`API_CLIP/`): text-conditioned attention maps from a hooked CLIP ViT gray out regions irrelevant to the question, spending the frame's resolution on what matters.
+LENS is a **training-free keyframe selection** pipeline for long-video question answering with large vision-language models (LVLMs). Different questions demand different evidence: some hinge on **fine-grained details** in a few frames (reading text, small objects, attributes), while others require **long-range temporal coverage** (main idea, event ordering, counting). A fixed sampling strategy cannot serve both.
 
-## Repository structure
+![](fig/overview.png)
+
+Given a fixed frame budget, LENS lets the LLM itself decide — per question — how to split the budget between two complementary views of the video:
+
+- **🔍 Spatial zoom-in**: full-resolution keyframes whose query-irrelevant regions are suppressed by CLIP attention masking, for detail questions.
+- **🔭 Temporal zoom-out**: 2×2 *hyperframes* that pack an anchor frame with its temporal neighborhood into a single frame slot, for questions about events, ordering, and changes over time.
+
+## 📢 Highlights
+
+- 💡 We introduce **adaptive budget allocation**: a lightweight prompt asks the LVLM to output a single ratio `r` from the question alone — detail questions get more spatial zoom-in, temporal questions get more zoom-out. No training, no extra models.
+- 🔥 **Spatial zoom-in via visual prompting**: watershed anchor selection over the ITM relevance curve picks temporally diverse peaks, and text-conditioned CLIP attention maps gray out regions irrelevant to the question, spending each frame's resolution on what matters.
+- 🚀 **Temporal zoom-out with video graph reasoning**: frames are connected by pairwise SSIM into a video graph; manifold ranking `f ← βPf + (1−β)y` propagates relevance along the graph, suppressing isolated noisy peaks, and each selected anchor is composed with its neighborhood into a 2×2 hyperframe for long-range coverage.
+- ⚡ LENS is **plug-and-play** with any LVLM (Qwen2-VL / Qwen2.5-VL, InternVL2.5, LLaVA-Video, LongVU) and evaluated on five long-video benchmarks.
+
+## 🛠️ Method
+
+![](fig/LENS.png)
+
+**Pipeline.** (A) *Spatial zoom-in*: an ITM model (CLIP/BLIP/BLIP2) scores every frame against the question; watershed selection picks anchor peaks, and CLIP attention masking highlights query-relevant evidence. (B) *Temporal zoom-out*: relevance scores are refined by message passing on an SSIM-based video graph, and refined anchors are aggregated with their neighborhoods into hyperframes. (C) *Adaptive budget allocation*: a frozen video LLM reads the question and splits the frame budget `r : (1−r)` between the two branches; the merged, temporally ordered frames are fed to the LVLM for the final answer.
+
+## 📂 Repository Structure
 
 ```
 LENS/
@@ -48,10 +50,11 @@ LENS/
 │   └── config.py      # command-line arguments
 ├── models/            # per-LVLM adapters (Qwen2-VL / Qwen2.5-VL, InternVL2.5, LLaVA-Video, LongVU)
 ├── API_CLIP/          # CLIP attention masking (adapted from API prompting / clip_prs)
+├── fig/               # figures
 └── scripts/           # torchrun launch scripts
 ```
 
-## Setup
+## ⏳ Environment and Setup
 
 ```bash
 conda create -n lens python=3.11
@@ -65,7 +68,7 @@ The default backend is Qwen2.5-VL-7B-Instruct; CLIP ViT-L/14-336 is used for fra
 
 Optional backends need their own packages: LLaVA-Video (`llava`), LongVU (`longvu`).
 
-## Data preparation
+## 🤗 Data Preparation
 
 Download the benchmarks and arrange them as the loaders in `utils/data.py` expect:
 
@@ -77,7 +80,7 @@ Download the benchmarks and arrange them as the loaders in `utils/data.py` expec
 | `egoschema` | [EgoSchema](https://huggingface.co/datasets/lmms-lab/egoschema) | `Subset/test-00000-of-00001.parquet`, `videos/*.mp4` |
 | `nextqa` | [NExT-QA](https://huggingface.co/datasets/lmms-lab/NExTQA) | `MC/test-00000-of-00001.parquet`, `NExTVideo/` |
 
-## Running
+## 🚀 Running
 
 ```bash
 torchrun \
@@ -108,7 +111,7 @@ Main arguments (`utils/config.py`):
 
 Evaluation is distributed across GPUs with per-rank JSON checkpoints, so an interrupted run resumes automatically. Rank 0 writes `output.json` (all predictions) and `result.json` (accuracy per question type and overall) to `<output_path>/<model_name>/<task>/`.
 
-## Using your own LVLM
+## 🔧 Using Your Own LVLM
 
 Add a module under `models/` exposing three functions, then register it in `utils/lens.py: MODEL_MAP`:
 
@@ -118,22 +121,27 @@ def load_video(video_path, args)
 def mllm_response(video_llm, processor, image_processor, text, image_inputs, video, ...)
 ```
 
-## Acknowledgements
+## 🙏 Acknowledgements
 
 This codebase builds on the evaluation frameworks of [AKS](https://github.com/ncTimTang/AKS) and [Vgent](https://github.com/xiaoqian-shen/Vgent). The CLIP attention masking in `API_CLIP/` is adapted from [API prompting](https://github.com/yu-rp/apiprompting) and [clip_prs](https://github.com/yossigandelsman/clip_prs); video loading utilities in `models/utils.py` are adapted from [qwen-vl-utils](https://github.com/QwenLM/Qwen2.5-VL). We thank the authors of these projects.
 
-## License
+## 📄 License
 
 This project is released under the [MIT License](LICENSE). `API_CLIP/clip_prs/` retains the license of its upstream project.
 
-## Citation
+## 📧 Contact
+
+If you have any questions, please feel free to reach out at `zhangce1203@gmail.com`.
+
+## 📌 BibTeX & Citation
 
 If you find this work useful, please consider citing:
 
 ```bibtex
-@article{lens2026,
+@inproceedings{lens2026,
   title={LENS: Query-Adaptive Spatial Zoom-In and Temporal Zoom-Out for Long Video Understanding},
   author={},
+  booktitle={European Conference on Computer Vision (ECCV)},
   year={2026}
 }
 ```
