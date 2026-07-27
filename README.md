@@ -2,10 +2,6 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-Coming_Soon-b31b1b.svg)](https://arxiv.org/) [![Conference](https://img.shields.io/badge/ECCV-2026-blue)](https://eccv.ecva.net/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![PyTorch](https://img.shields.io/badge/PyTorch-2.6-EE4C2C.svg?logo=pytorch&logoColor=white)](https://pytorch.org/)
 
-**Ce Zhang, Jinxi He, Katia Sycara, Yaqi Xie**
-
-Robotics Institute, Carnegie Mellon University
-
 ## 🔥 News
 
 - **[2026.07]** 🎉 LENS is accepted to **ECCV 2026**!
