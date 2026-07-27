@@ -172,6 +172,8 @@ section h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:700;letter-spacing:-.0
   background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
   box-shadow:var(--shadow);overflow-x:auto;
 }
+.table-card.tab-in{animation:tabIn .38s cubic-bezier(.2,.7,.3,1)}
+@keyframes tabIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 table{border-collapse:collapse;width:100%;min-width:640px;font-size:.93rem}
 th,td{padding:11px 16px;text-align:center;white-space:nowrap}
 th{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);border-bottom:1px solid var(--line);font-weight:600}
@@ -468,9 +470,21 @@ footer .foot-line{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
 // tabs
 const tabs=document.querySelectorAll('.tab');
 tabs.forEach(t=>t.addEventListener('click',()=>{
+  if(t.classList.contains('active'))return;
   tabs.forEach(x=>x.classList.remove('active'));
   t.classList.add('active');
-  ['t8','t16','t32','tbb'].forEach(id=>document.getElementById(id).hidden=(id!==t.dataset.t));
+  ['t8','t16','t32','tbb'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(id===t.dataset.t){
+      el.hidden=false;
+      el.classList.remove('tab-in');
+      void el.offsetWidth;          // restart the animation on every switch
+      el.classList.add('tab-in');
+    }else{
+      el.hidden=true;
+      el.classList.remove('tab-in');
+    }
+  });
 }));
 // reveal on scroll + bar animation
 const io=new IntersectionObserver(es=>{
