@@ -17,7 +17,7 @@ def get_args():
     parser.add_argument('--total_pixels', type=int, default=16384)
     parser.add_argument('--duration', default="long,medium,short", type=str)
     parser.add_argument('--num_frames', type=int, default=32)
-    parser.add_argument('--itm_model_name', type=str, default="CLIP")
+    parser.add_argument('--itm_model_name', type=str, default="BLIP")
 
     args = parser.parse_args()
     args.duration = args.duration.split(",")

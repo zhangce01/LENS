@@ -66,7 +66,7 @@ pip install -r requirements.txt
 pip install flash-attn --no-build-isolation
 ```
 
-The default backend is Qwen2.5-VL-7B-Instruct; CLIP ViT-L/14-336 is used for frame scoring and masking. All models are downloaded automatically from Hugging Face on first run.
+The default backend is Qwen2.5-VL-7B-Instruct; BLIP (ITM) is used for frame relevance scoring and CLIP ViT-L/14-336 for attention masking. All models are downloaded automatically from Hugging Face on first run.
 
 Optional backends need their own packages: LLaVA-Video (`llava`), LongVU (`longvu`).
 
@@ -90,7 +90,7 @@ torchrun \
   --master_addr=127.0.0.1 --master_port=29501 \
   --nproc_per_node=4 \
   -m runners.run_lens \
-  --itm_model_name CLIP \
+  --itm_model_name BLIP \
   --model_name qwenvl25_7b \
   --task videomme \
   --data_path /path/to/Video-MME \
@@ -107,7 +107,7 @@ Main arguments (`utils/config.py`):
 | `--task` | `mlvu` | `mlvu` / `videomme` / `lvb` / `egoschema` / `nextqa` |
 | `--data_path` | `./data` | benchmark root directory |
 | `--num_frames` | `32` | total frame budget N |
-| `--itm_model_name` | `CLIP` | relevance scorer: `CLIP` / `BLIP` / `BLIP2` |
+| `--itm_model_name` | `BLIP` | relevance scorer: `CLIP` / `BLIP` / `BLIP2` |
 | `--fps` | `1.0` | decoding frame rate |
 | `--output_path` | `./eval` | results directory |
 

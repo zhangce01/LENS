@@ -16,7 +16,7 @@ torchrun \
   --nproc_per_node=$N_PROCS_PER_NODE \
   --master_port=$MASTER_PORT \
   -m runners.run_baseline \
-  --itm_model_name CLIP \
+  --itm_model_name BLIP \
   --model_name qwenvl25_7b \
   --task videomme \
   --data_path /path/to/Video-MME \
