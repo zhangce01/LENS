@@ -1,6 +1,10 @@
-# [ECCV 2026] LENS: Query-Adaptive Spatial Zoom-In and Temporal Zoom-Out for Long Video Understanding
+# [ECCV 2026] LENS: Adaptive Spatio-Temporal Zooming for Keyframe Sampling in Long-Form Videos
 
 [![arXiv](https://img.shields.io/badge/arXiv-Coming_Soon-b31b1b.svg)](https://arxiv.org/) [![Conference](https://img.shields.io/badge/ECCV-2026-blue)](https://eccv.ecva.net/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![PyTorch](https://img.shields.io/badge/PyTorch-2.6-EE4C2C.svg?logo=pytorch&logoColor=white)](https://pytorch.org/)
+
+**Ce Zhang, Jinxi He, Katia Sycara, Yaqi Xie**
+
+Robotics Institute, Carnegie Mellon University
 
 ## 🔥 News
 
@@ -9,7 +13,7 @@
 
 ## 👀 Introduction
 
-This repository contains the code for our ECCV 2026 paper `LENS: Query-Adaptive Spatial Zoom-In and Temporal Zoom-Out for Long Video Understanding`.
+This repository contains the code for our ECCV 2026 paper `LENS: Adaptive Spatio-Temporal Zooming for Keyframe Sampling in Long-Form Videos`.
 
 LENS is a **training-free keyframe selection** pipeline for long-video question answering with large vision-language models (LVLMs). Different questions demand different evidence: some hinge on **fine-grained details** in a few frames (reading text, small objects, attributes), while others require **long-range temporal coverage** (main idea, event ordering, counting). A fixed sampling strategy cannot serve both.
 
@@ -138,9 +142,9 @@ If you have any questions, please feel free to reach out at `zhangce1203@gmail.c
 If you find this work useful, please consider citing:
 
 ```bibtex
-@inproceedings{lens2026,
-  title={LENS: Query-Adaptive Spatial Zoom-In and Temporal Zoom-Out for Long Video Understanding},
-  author={},
+@inproceedings{zhang2026lens,
+  title={LENS: Adaptive Spatio-Temporal Zooming for Keyframe Sampling in Long-Form Videos},
+  author={Zhang, Ce and He, Jinxi and Sycara, Katia and Xie, Yaqi},
   booktitle={European Conference on Computer Vision (ECCV)},
   year={2026}
 }
