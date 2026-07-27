@@ -1,6 +1,8 @@
 # [ECCV 2026] LENS: Adaptive Spatio-Temporal Zooming for Keyframe Sampling in Long-Form Videos
 
-[![arXiv](https://img.shields.io/badge/arXiv-Coming_Soon-b31b1b.svg)](https://arxiv.org/) [![Conference](https://img.shields.io/badge/ECCV-2026-blue)](https://eccv.ecva.net/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![PyTorch](https://img.shields.io/badge/PyTorch-2.6-EE4C2C.svg?logo=pytorch&logoColor=white)](https://pytorch.org/)
+<p align="center">
+<a href="https://zhangce01.github.io/LENS/" style="text-decoration:none"><img src="https://img.shields.io/badge/🌐%20Project-Website-green?style=flat-square"></a>&nbsp;&nbsp;<a href="https://arxiv.org/" style="text-decoration:none"><img src="https://img.shields.io/badge/📄%20arXiv-Coming%20Soon-red?style=flat-square"></a>&nbsp;&nbsp;<a href="https://opensource.org/licenses/MIT" style="text-decoration:none"><img src="https://img.shields.io/badge/📜%20License-MIT-yellow.svg?style=flat-square"></a>&nbsp;&nbsp;<a href="https://eccv.ecva.net/" style="text-decoration:none"><img src="https://img.shields.io/badge/ECCV-2026-blue?style=flat-square"></a>&nbsp;&nbsp;<a href="https://pytorch.org/" style="text-decoration:none"><img src="https://img.shields.io/badge/PyTorch-2.6-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"></a>
+</p>
 
 ## 🔥 News
 
