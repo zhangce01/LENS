@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.whl
+.DS_Store
+.ipynb_checkpoints/
+
+# evaluation outputs
+eval/
+images/
+data/
+*.log

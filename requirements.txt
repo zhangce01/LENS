@@ -1,0 +1,23 @@
+torch==2.6.0
+torchvision==0.21.0
+transformers==4.51.3
+tokenizers==0.21.4
+huggingface_hub
+accelerate
+decord==0.6.0
+opencv-python-headless
+pillow
+numpy
+scipy
+pyarrow
+pandas
+pysubs2
+einops
+ftfy
+regex
+tqdm
+packaging
+requests
+# Optional: needed for attn_implementation="flash_attention_2" in models/qwenvl.py
+# (install a wheel matching your CUDA / torch / python version)
+# flash-attn==2.7.4.post1
