@@ -228,6 +228,16 @@ footer{margin-top:96px;border-top:1px solid var(--line);padding:44px 0 56px;back
 footer .ack{font-size:.85rem;color:var(--ink-faint);max-width:860px;margin-bottom:18px}
 footer .foot-line{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.88rem;color:var(--ink-soft)}
 
+/* colored scrollbar */
+html{scrollbar-width:thin;scrollbar-color:#6366f1 #eef1f6}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track{background:#eef1f6}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#f59e0b 0%,#ef6a3d 30%,#6366f1 68%,#3b82f6 100%);
+  border-radius:999px;border:2px solid #eef1f6;
+}
+::-webkit-scrollbar-thumb:hover{border-width:1px}
+
 /* reveal animation */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
 .reveal.in{opacity:1;transform:none}
