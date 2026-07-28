@@ -107,6 +107,7 @@ Main arguments (`utils/config.py`):
 | `--task` | `mlvu` | `mlvu` / `videomme` / `lvb` / `egoschema` / `nextqa` |
 | `--data_path` | `./data` | benchmark root directory |
 | `--num_frames` | `32` | total frame budget N |
+| `--pre_sample_frames` | `256` | candidate pool size for the temporal branch (uniformly pre-sampled before the SSIM graph) |
 | `--itm_model_name` | `BLIP` | relevance scorer: `CLIP` / `BLIP` / `BLIP2` |
 | `--fps` | `1.0` | decoding frame rate |
 | `--output_path` | `./eval` | results directory |

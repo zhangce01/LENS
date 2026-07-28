@@ -145,7 +145,11 @@ for line in pbar:
         else:
             raise ValueError(f"Invalid ITM model name: {args.itm_model_name}")
 
-        pre_selected_indices = uniform_sampling(raw_video, question, 128)
+        # Candidate pool for the temporal branch: uniformly pre-sample the video
+        # down to a fixed size before building the SSIM graph. Never ask for more
+        # frames than the video has, otherwise the pool contains duplicates.
+        n_pre = min(args.pre_sample_frames, len(raw_video))
+        pre_selected_indices = uniform_sampling(raw_video, question, n_pre)
 
         sampled_video = raw_video[pre_selected_indices]
         scores = scores[pre_selected_indices]
