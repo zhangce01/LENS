@@ -228,15 +228,22 @@ footer{margin-top:96px;border-top:1px solid var(--line);padding:44px 0 56px;back
 footer .ack{font-size:.85rem;color:var(--ink-faint);max-width:860px;margin-bottom:18px}
 footer .foot-line{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.88rem;color:var(--ink-soft)}
 
-/* colored scrollbar */
-html{scrollbar-width:thin;scrollbar-color:#a5b4fc #f1f4f9}
+/* colored scrollbar (standard props only for Firefox — Chromium would
+   otherwise ignore the ::-webkit-scrollbar gradient styling) */
+@supports not selector(::-webkit-scrollbar){
+  html{scrollbar-width:thin;scrollbar-color:#a5b4fc #f1f4f9}
+}
 ::-webkit-scrollbar{width:9px;height:9px}
 ::-webkit-scrollbar-track{background:#f1f4f9}
 ::-webkit-scrollbar-thumb{
   background:linear-gradient(180deg,#fcd34d 0%,#fdba74 30%,#a5b4fc 68%,#93c5fd 100%);
   border-radius:999px;border:2px solid #f1f4f9;
 }
-::-webkit-scrollbar-thumb:hover{border-width:1px}
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active{
+  background:linear-gradient(180deg,#a78bfa 0%,#818cf8 50%,#6366f1 100%);
+  border-width:1px;
+}
 
 /* reveal animation */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
