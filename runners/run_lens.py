@@ -146,9 +146,12 @@ for line in pbar:
             raise ValueError(f"Invalid ITM model name: {args.itm_model_name}")
 
         # Candidate pool for the temporal branch: uniformly pre-sample the video
-        # down to a fixed size before building the SSIM graph. Never ask for more
-        # frames than the video has, otherwise the pool contains duplicates.
-        n_pre = min(args.pre_sample_frames, len(raw_video))
+        # before building the SSIM graph. It scales with the frame budget (8x,
+        # floored at 128), so small budgets keep the original 128-frame pool and
+        # a 32-frame budget gets 256 candidates. Never ask for more frames than
+        # the video has, otherwise the pool contains duplicates.
+        n_pre = args.pre_sample_frames if args.pre_sample_frames > 0 else max(128, 8 * args.num_frames)
+        n_pre = min(n_pre, len(raw_video))
         pre_selected_indices = uniform_sampling(raw_video, question, n_pre)
 
         sampled_video = raw_video[pre_selected_indices]

@@ -17,7 +17,9 @@ def get_args():
     parser.add_argument('--total_pixels', type=int, default=16384)
     parser.add_argument('--duration', default="long,medium,short", type=str)
     parser.add_argument('--num_frames', type=int, default=32)
-    parser.add_argument('--pre_sample_frames', type=int, default=256)
+    # 0 = auto: max(128, 8 * num_frames), i.e. 128 for budgets up to 16 frames
+    # and 256 at a 32-frame budget
+    parser.add_argument('--pre_sample_frames', type=int, default=0)
     parser.add_argument('--itm_model_name', type=str, default="BLIP")
 
     args = parser.parse_args()
