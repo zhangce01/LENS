@@ -1,11 +1,12 @@
 # [ECCV 2026] LENS: Adaptive Spatio-Temporal Zooming for Keyframe Sampling in Long-Form Videos
 
 <p align="center">
-<a href="https://zhangce01.github.io/LENS/" style="text-decoration:none"><img src="https://img.shields.io/badge/🌐%20Project-Website-green?style=flat-square"></a>&nbsp;&nbsp;<a href="https://arxiv.org/" style="text-decoration:none"><img src="https://img.shields.io/badge/📄%20arXiv-Coming%20Soon-red?style=flat-square"></a>&nbsp;&nbsp;<a href="https://opensource.org/licenses/MIT" style="text-decoration:none"><img src="https://img.shields.io/badge/📜%20License-MIT-yellow.svg?style=flat-square"></a>&nbsp;&nbsp;<a href="https://eccv.ecva.net/" style="text-decoration:none"><img src="https://img.shields.io/badge/ECCV-2026-blue?style=flat-square"></a>&nbsp;&nbsp;<a href="https://pytorch.org/" style="text-decoration:none"><img src="https://img.shields.io/badge/PyTorch-2.6-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"></a>
+<a href="https://zhangce01.github.io/LENS/" style="text-decoration:none"><img src="https://img.shields.io/badge/🌐%20Project-Website-green?style=flat-square"></a>&nbsp;&nbsp;<a href="https://arxiv.org/abs/2607.25125" style="text-decoration:none"><img src="https://img.shields.io/badge/📄%20arXiv-2607.25125-red?style=flat-square"></a>&nbsp;&nbsp;<a href="https://opensource.org/licenses/MIT" style="text-decoration:none"><img src="https://img.shields.io/badge/📜%20License-MIT-yellow.svg?style=flat-square"></a>&nbsp;&nbsp;<a href="https://eccv.ecva.net/" style="text-decoration:none"><img src="https://img.shields.io/badge/ECCV-2026-blue?style=flat-square"></a>&nbsp;&nbsp;<a href="https://pytorch.org/" style="text-decoration:none"><img src="https://img.shields.io/badge/PyTorch-2.6-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"></a>
 </p>
 
 ## 🔥 News
 
+- **[2026.07]** 📄 Our paper is available on [arXiv](https://arxiv.org/abs/2607.25125)!
 - **[2026.07]** 🎉 LENS is accepted to **ECCV 2026**!
 - **[2026.07]** 💻 Code is released. Try LENS on MLVU, Video-MME, LongVideoBench, EgoSchema, and NExT-QA!
 
